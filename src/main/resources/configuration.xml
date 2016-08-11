@@ -30,5 +30,4 @@
     <mappers>
         <mapper resource="com/smk/pay/macz/mapper/Order.xml"/>
     </mappers>
-
 </configuration>
