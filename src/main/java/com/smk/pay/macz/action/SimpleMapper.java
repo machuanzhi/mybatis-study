@@ -25,22 +25,22 @@ public class SimpleMapper {
         try {
             SqlSessionFactory sqlSessionFactory = SqlMapperManager.getFactory();
             session = sqlSessionFactory.openSession();
-//            Blog blog = (Blog)session.selectOne("selectBlogById", 1);
-//            System.out.println(blog);
-//
-//            System.out.println("===============================");
-//
-//            Map<String, Object> paraMap = new HashMap<String, Object>();
-//            paraMap.put("ID", 2);
-//            Blog blog2 = (Blog)session.selectOne("selectBlogByIdMap", paraMap);
-//            System.out.println(blog2);
-//
-//            System.out.println("===============================");
-//
-//            Blog paraBlog = new Blog();
-//            paraBlog.setId(3);
-//            Blog blog3 = (Blog)session.selectOne("selectBlogByIdMap", paraBlog);
-//            System.out.println(blog3);
+            Blog blog = (Blog)session.selectOne("selectBlogById", 1);
+            System.out.println(blog);
+
+            System.out.println("===============================");
+
+            Map<String, Object> paraMap = new HashMap<String, Object>();
+            paraMap.put("ID", 2);
+            Blog blog2 = (Blog)session.selectOne("selectBlogByIdMap", paraMap);
+            System.out.println(blog2);
+
+            System.out.println("===============================");
+
+            Blog paraBlog = new Blog();
+            paraBlog.setId(3);
+            Blog blog3 = (Blog)session.selectOne("selectBlogByIdMap", paraBlog);
+            System.out.println(blog3);
 
             System.out.println("===============================");
 
