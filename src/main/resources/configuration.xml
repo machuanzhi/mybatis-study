@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--resource="jdbc.properties"-->
+    <properties resource="jdbc.properties"/>
+
+    <typeAliases>
+        <typeAlias type="com.smk.pay.macz.model.Author" alias="Author"/>
+        <typeAlias type="com.smk.pay.macz.model.Blog" alias="Blog"/>
+        <typeAlias type="com.smk.pay.macz.model.Comment" alias="Comment"/>
+        <typeAlias type="com.smk.pay.macz.model.Post" alias="Post"/>
+        <typeAlias type="com.smk.pay.macz.model.Tag" alias="Tag"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.smk.pay.macz.interceptor.PaginationInterceptor"></plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/smk/pay/macz/mapper/Order.xml"/>
+    </mappers>
+</configuration>

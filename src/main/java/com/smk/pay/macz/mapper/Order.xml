@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smk.pay.macz.action.IOrderDao">
+    <resultMap id="blogResultMap" type="Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="authorId" column="author_id"/>
+    </resultMap>
+
+    <resultMap id="blogResultMapExt" type="Blog">
+        <id property="id" column="blog_id"/>
+        <result property="title" column="blog_title"/>
+        <association property="author" column="blog_author_id" javaType="Author" resultMap="authorResultMapExt"/>
+        <collection property="posts" column="blog_post_id" javaType="ArrayList" ofType="Post" resultMap="postResultMapExt"/>
+    </resultMap>
+
+    <resultMap id="postResultMapExt" type="Post">
+        <id property="id" column="post_id"/>
+        <result property="blogId" column="post_blog_id"/>
+        <result property="subject" column="subject"/>
+        <result property="body" column="body"/>
+    </resultMap>
+
+    <resultMap id="authorResultMapExt" type="Author">
+        <id property="id" column="author_id"/>
+        <result property="username" column="author_username"/>
+        <result property="password" column="author_password"/>
+        <result property="email" column="author_email"/>
+        <result property="bio" column="author_bio"/>
+    </resultMap>
+
+    <select id="selectBlogById" parameterType="int" resultMap="blogResultMap">
+      SELECT ID, TITLE, AUTHOR_ID  FROM BLOG WHERE ID = #{id}
+    </select>
+
+    <select id="selectBlogByIdMap" parameterType="map" resultMap="blogResultMap">
+        SELECT ID, TITLE, AUTHOR_ID  FROM BLOG WHERE ID = #{id}
+    </select>
+
+    <select id="selectBlog" parameterType="int" resultMap="blogResultMapExt">
+        SELECT b.id as blog_id,
+               b.title as blog_title,
+                b.author_id as blog_author_id,
+                a.id as author_id,
+                a.username as author_username,
+                a.password as author_password,
+                a.email as author_email,
+                a.bio as author_bio,
+                p.id as post_id,
+                p.blog_id as post_blog_id,
+                p.subject,
+                p.body
+        FROM blog b LEFT JOIN author a on a.id = b.author_id
+         LEFT JOIN post p on p.blog_id = b.id
+         where b.id = #{id} order by p.subject desc
+
+    </select>
+</mapper>
